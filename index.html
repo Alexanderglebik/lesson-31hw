@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+        <!-- Materialize CSS & Icons -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+        
+        <link rel="stylesheet" href="./main.css" />
+        
+        <title> Lesson 31 - Classwork </title>
+    </head>
+    <body>
+        <div id="app" class="container">
+            <div class="row">
+                <preloader v-if  = "isLoading"></preloader>
+                <!-- TODO List -->
+                <ul class="collection with-header" v-else>
+                    <todo-header>
+                        <template #title> Список дел: 
+
+                        </template>
+                        <todo-text  :done-todos='doneTodos'
+                                    :todo-items='todoItems'
+
+                                 ></todo-text>
+                        <!-- <template #badge>
+                            <span class="new badge teal" data-badge-caption="выполнено"> 
+                                {{ doneTodos.length }} из {{ todoItems.length }} 
+                            </span>
+                        </template> -->
+                        <form class="row" @submit.prevent="addNewTodo">
+                            <div class="col s11">
+                                <input 
+                                    class        = "validate"
+                                    type         = "text"
+                                    placeholder  = "Что сделать?"
+                                    v-model.trim = "newTodo"
+                                />
+                            </div>
+                            <todo-button>
+                            <template #button> Добавить </template>
+                            </todo-button>
+                        </form>
+                   
+                   
+                    </todo-header>
+                
+                   
+                       
+                    </li>
+                    <todo-item  v-for = "(item, index) in todoItems" 
+                                :key  = "item.id"
+                                :is-checked ="item.isChecked"
+                                @checked-item ="item.isChecked = $event"
+                                @remove-item = "removeTodoItem(index)"
+                                @edit-item = "editTodoItem(index)"
+                    >
+                    {{ item.text }}
+                </todo-item>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <!-- Materialize -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script src="./index.js"></script>
+    </body>
+</html>
